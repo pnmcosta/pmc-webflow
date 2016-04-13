@@ -56,26 +56,9 @@ a {
         margin-bottom:0;
     }
 }
-/* #Reset/Text# */
-
-    
-/* #Reset/Container# */
-.docs.container a,
-.main-container a,
-.w-container li a{
-    color: #7a232e;
-}
-.docs.container a:hover,
-.main-container a:hover,
-.w-container li a:hover{
-    color: #a3af00;
-}
+/* #Reset/Docs# */
 .docs.container { text-align:justify;}
-@media screen and (min-width: 1200px) {
-    .w-container {
-        max-width: 1170px;
-    }
-}
+
 /* #Reset/Forms# */
 .checkboxfield.checkbox,
 .form-control{
