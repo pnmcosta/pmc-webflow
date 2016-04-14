@@ -97,6 +97,8 @@ Webflow.push(function () {
         var current = megaNavContainers.filter('.current');
         if (current.length > 0)
             closeMegaNav();
+            
+        megaNavContainers.css('display', '');
         megaNavContainers.each(function () {
             var container = $(this);
             if (!container.is(':visible'))
