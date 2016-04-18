@@ -127,15 +127,10 @@ Webflow.push(function () {
 
                 trigger.on('tap.meganav', function (e) {
                     e.preventDefault();
-                    e.stopPropagation();
                     toggleMegaNav(getMegaNav(this), 'click');
                 });
             });
             container.data('triggers', triggers);
-            
-            $('a', container).on('tap', function (e) {
-                e.stopPropagation();
-            });
         });
         megaNavContainers.css('display', 'none');
     };
@@ -178,9 +173,11 @@ Webflow.push(function () {
                 var me = $(this);
                 var sliderNav = me.data('slider-nav') || null;
                 var slideDot = me.data('slide-dot') || 0;
-                e.preventDefault();
-                e.stopPropagation();
+               
                 if (typeof sliderNav != 'undefined' && slideDot > 0) {
+                    if(!me.hasClass('current')) // allow second tap to do default (redirect to link)
+                        e.preventDefault();
+                        
                     trigger.siblings('.meganav-link').removeClass('current');
                     $(sliderNav.children().eq(slideDot)).trigger('tap');
                     me.addClass('current');
@@ -229,8 +226,10 @@ Webflow.push(function () {
     //         clearTimeout(megaNavTimeout);
     //     e.stopPropagation();
     // });
-    $('html').on('tap', function (e) {
-        closeMegaNav();
+    $(document).on('tap', function (e) {
+        if (!$(event.target).closest('.meganav').length) {
+            closeMegaNav();
+        }
     });
     var previousDims = [win.width(), win.height()];
     Webflow.resize.on(function () {
