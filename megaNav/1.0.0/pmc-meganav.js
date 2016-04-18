@@ -213,13 +213,11 @@ Webflow.push(function () {
         if (typeof megaNavTimeout != 'undefined')
             clearTimeout(megaNavTimeout);
         scrollStartPos = this.scrollTop + e.originalEvent.touches[0].pageY;
-        e.preventDefault();
     });
     megaNav.on('touchmove', function (e) {
         if (typeof megaNavTimeout != 'undefined')
             clearTimeout(megaNavTimeout);
         this.scrollTop = scrollStartPos - e.originalEvent.touches[0].pageY;
-        e.preventDefault();
     });
     // megaNav.on('tap', function (e) {
     //     if (typeof megaNavTimeout != 'undefined')
@@ -227,7 +225,7 @@ Webflow.push(function () {
     //     e.stopPropagation();
     // });
     $(document).on('tap', function (e) {
-        if (!$(event.target).closest('.meganav').length) {
+        if (!$(event.target).closest('.header').length) {
             closeMegaNav();
         }
     });
