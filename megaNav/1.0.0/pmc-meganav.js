@@ -220,7 +220,7 @@ Webflow.push(function () {
         this.scrollTop = scrollStartPos - e.originalEvent.touches[0].pageY;
     });
     $(document).on('tap', function (e) {
-        if (!$(event.target).closest('.header').length) {
+        if (!$(e.target).closest('.header').length) {
             closeMegaNav();
         }
     });
