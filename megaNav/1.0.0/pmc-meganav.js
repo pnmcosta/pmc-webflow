@@ -157,15 +157,15 @@ Webflow.push(function () {
         Webflow.require('slider').redraw();
         var sliderNav = $('.meganav-col.slider .meganav-slider-nav', container);
         var mobileSliderNav = $('.meganav-mobile-slider-nav', container);
+        slidesTriggers.removeClass('current');
         slidesTriggers.each(function (i) {
             var trigger = $(this);
             var index = trigger.data('slide-dot') || 0;
-            if (index == 0)
-                return true;
-            trigger.data('slider-nav', sliderNav);
-            if (mobile)
-                trigger.data('mobile-nav', mobileSliderNav);
-            trigger.siblings('.meganav-link').removeClass('current');
+            if (index > 0){
+                trigger.data('slider-nav', sliderNav);
+                if (mobile)
+                    trigger.data('mobile-nav', mobileSliderNav);
+            }
             trigger.off(mobile ? 'tap.meganav' : 'mouseenter.meganav tap.meganav');
             trigger.on(mobile ? 'tap.meganav' : 'mouseenter.meganav tap.meganav', function (e) {
                 if (typeof megaNavTimeout != 'undefined')
@@ -173,15 +173,17 @@ Webflow.push(function () {
                 var me = $(this);
                 var sliderNav = me.data('slider-nav') || null;
                 var slideDot = me.data('slide-dot') || 0;
+                e.preventDefault();
+                e.stopPropagation();
                 if (typeof sliderNav != 'undefined' && slideDot > 0) {
-                    e.preventDefault();
-                    e.stopPropagation();
                     trigger.siblings('.meganav-link').removeClass('current');
                     $(sliderNav.children().eq(slideDot)).trigger('tap');
                     me.addClass('current');
                     var mobileNav = $(this).data('mobile-nav') || null;
                     if (mobileNav != null)
                         $('.w-slider-dot:eq(1)', mobileNav).trigger('tap');
+                }else{
+                    location.href = me.attr('href');
                 }
             });
         });
