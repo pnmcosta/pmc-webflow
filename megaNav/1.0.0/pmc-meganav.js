@@ -159,25 +159,26 @@ Webflow.push(function () {
         slidesTriggers.each(function (i) {
             var trigger = $(this);
             var index = trigger.data('slide-dot') || 0;
-            if (index <=0) return true;
-
-            trigger.data('slider-nav', sliderNav);
-            if (mobile)
-                trigger.data('mobile-nav', mobileSliderNav);
-
+            if (index > 0) {
+                trigger.data('slider-nav', sliderNav);
+                if (mobile)
+                    trigger.data('mobile-nav', mobileSliderNav);
+            }
             trigger.off(mobile ? 'tap.meganav' : 'mouseenter.meganav tap.meganav');
             trigger.on(mobile ? 'tap.meganav' : 'mouseenter.meganav tap.meganav', function (e) {
                 if (typeof megaNavTimeout != 'undefined')
                     clearTimeout(megaNavTimeout);
+                
+                trigger.siblings('.meganav-link').removeClass('current w--current');
+                    
                 var me = $(this);
                 var sliderNav = me.data('slider-nav') || null;
                 var slideDot = me.data('slide-dot') || 0;
                
-                if (typeof sliderNav != 'undefined' && slideDot > 0) {
+                if (sliderNav != null && slideDot > 0) {
                     if(!me.hasClass('current')) // allow second tap to do default (redirect to link)
                         e.preventDefault();
                         
-                    trigger.siblings('.meganav-link').removeClass('current w--current');
                     $(sliderNav.children().eq(slideDot)).trigger('tap');
                     me.addClass('current');
                     var mobileNav = $(this).data('mobile-nav') || null;
@@ -218,11 +219,6 @@ Webflow.push(function () {
             clearTimeout(megaNavTimeout);
         this.scrollTop = scrollStartPos - e.originalEvent.touches[0].pageY;
     });
-    // megaNav.on('tap', function (e) {
-    //     if (typeof megaNavTimeout != 'undefined')
-    //         clearTimeout(megaNavTimeout);
-    //     e.stopPropagation();
-    // });
     $(document).on('tap', function (e) {
         if (!$(event.target).closest('.header').length) {
             closeMegaNav();
