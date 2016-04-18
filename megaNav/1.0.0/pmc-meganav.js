@@ -132,6 +132,10 @@ Webflow.push(function () {
                 });
             });
             container.data('triggers', triggers);
+            
+            $('a', container).on('tap', function (e) {
+                e.stopPropagation();
+            });
         });
         megaNavContainers.css('display', 'none');
     };
@@ -161,11 +165,12 @@ Webflow.push(function () {
         slidesTriggers.each(function (i) {
             var trigger = $(this);
             var index = trigger.data('slide-dot') || 0;
-            if (index > 0){
-                trigger.data('slider-nav', sliderNav);
-                if (mobile)
-                    trigger.data('mobile-nav', mobileSliderNav);
-            }
+            if (index <=0) return true;
+
+            trigger.data('slider-nav', sliderNav);
+            if (mobile)
+                trigger.data('mobile-nav', mobileSliderNav);
+
             trigger.off(mobile ? 'tap.meganav' : 'mouseenter.meganav tap.meganav');
             trigger.on(mobile ? 'tap.meganav' : 'mouseenter.meganav tap.meganav', function (e) {
                 if (typeof megaNavTimeout != 'undefined')
@@ -182,8 +187,6 @@ Webflow.push(function () {
                     var mobileNav = $(this).data('mobile-nav') || null;
                     if (mobileNav != null)
                         $('.w-slider-dot:eq(1)', mobileNav).trigger('tap');
-                }else{
-                    location.href = me.attr('href');
                 }
             });
         });
