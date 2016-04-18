@@ -82,10 +82,10 @@ Webflow.push(function () {
         $(container.data('triggers')).each(function () {
             var me = $(this);
             if (me.hasClass('nav-link-icon'))
-                me.removeClass('fa-angle-up').removeClass('fa-angle-down')
+                me.removeClass('fa-angle-up fa-angle-down')
                     .addClass(!current ? 'fa-angle-up' : 'fa-angle-down');
             else if (me.hasClass('nav-button-icon'))
-                me.removeClass('fa-close').removeClass('fa-bars')
+                me.removeClass('fa-close fa-bars')
                     .addClass(!current ? 'fa-close' : 'fa-bars');
         });
         if(current)
@@ -140,7 +140,7 @@ Webflow.push(function () {
         // handle sliders
         var mobile = $(win).width() <= 479;
         var slides = $('.meganav-col.slider .w-slide', container);
-        var slidesTriggers = $('.meganav-col.triggers .meganav-link', container).removeClass('current');
+        var slidesTriggers = $('.meganav-col.triggers .meganav-link', container).removeClass('current w--current');
         slidesTriggers.each(function (i) {
             var me = $(this);
             var slide = $(slides.eq(i + 1)); // 0 is default slide
@@ -156,7 +156,6 @@ Webflow.push(function () {
         Webflow.require('slider').redraw();
         var sliderNav = $('.meganav-col.slider .meganav-slider-nav', container);
         var mobileSliderNav = $('.meganav-mobile-slider-nav', container);
-        slidesTriggers.removeClass('current');
         slidesTriggers.each(function (i) {
             var trigger = $(this);
             var index = trigger.data('slide-dot') || 0;
@@ -178,7 +177,7 @@ Webflow.push(function () {
                     if(!me.hasClass('current')) // allow second tap to do default (redirect to link)
                         e.preventDefault();
                         
-                    trigger.siblings('.meganav-link').removeClass('current');
+                    trigger.siblings('.meganav-link').removeClass('current w--current');
                     $(sliderNav.children().eq(slideDot)).trigger('tap');
                     me.addClass('current');
                     var mobileNav = $(this).data('mobile-nav') || null;
