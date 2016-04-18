@@ -224,11 +224,11 @@ Webflow.push(function () {
         this.scrollTop = scrollStartPos - e.originalEvent.touches[0].pageY;
         e.preventDefault();
     });
-    megaNav.on('tap', function (e) {
-        if (typeof megaNavTimeout != 'undefined')
-            clearTimeout(megaNavTimeout);
-        e.stopPropagation();
-    });
+    // megaNav.on('tap', function (e) {
+    //     if (typeof megaNavTimeout != 'undefined')
+    //         clearTimeout(megaNavTimeout);
+    //     e.stopPropagation();
+    // });
     $('html').on('tap', function (e) {
         closeMegaNav();
     });
